@@ -54,7 +54,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         if (!userDetails.isEnabled())return RespBean.error("账户已经被禁用,清联系管理员");
         //生成token
         String token = jwtTokenUtil.generateToken(userDetails);
-        //更新security 登录用户对象  放在spring 全文中
+        //更新security 登录用户对象  放在Spring 全文中
         UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         Map<String,String> tokenMap=new HashMap<>();

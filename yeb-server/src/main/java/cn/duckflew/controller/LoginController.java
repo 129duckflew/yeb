@@ -33,7 +33,7 @@ public class LoginController
     {
         return RespBean.success("注销成功!");
     }
-    @GetMapping
+    @GetMapping("/admin/info")
     @ApiOperation(value = "获取当前登录用户的信息")
     public Admin getAdminInfo(Principal principal)
     {
