@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter
             {
                 //未登录 token存在用户名
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                boolean valid = jwtTokenUtil.validateToken(username, userDetails);
+                boolean valid = jwtTokenUtil.validateToken(authToken, userDetails);
                 if (valid)
                 {
                     UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(

@@ -10,6 +10,7 @@ import jdk.nashorn.internal.ir.ReturnNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ public class LoginController
     private IAdminService adminService;
     @ApiOperation(value = "登录之后返回token")
     @PostMapping("/login")
-    public RespBean login(AdminLoginParam adminLoginParam, HttpServletRequest httpRequest)
+    public RespBean login(@RequestBody AdminLoginParam adminLoginParam, HttpServletRequest httpRequest)
     {
         return adminService.login(adminLoginParam.getUsername(),adminLoginParam.getPassword(),httpRequest);
     }
