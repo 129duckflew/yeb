@@ -23,7 +23,7 @@ public interface IAdminService extends IService<Admin> {
      * @param httpRequest
      * @return
      */
-    RespBean login(String username, String password, HttpServletRequest httpRequest);
+    RespBean login(String username, String password,String code, HttpServletRequest httpRequest);
 
     Admin getAdminByUsername(String username);
 }

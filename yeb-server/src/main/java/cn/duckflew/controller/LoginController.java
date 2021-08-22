@@ -26,7 +26,7 @@ public class LoginController
     @PostMapping("/login")
     public RespBean login(@RequestBody AdminLoginParam adminLoginParam, HttpServletRequest httpRequest)
     {
-        return adminService.login(adminLoginParam.getUsername(),adminLoginParam.getPassword(),httpRequest);
+        return adminService.login(adminLoginParam.getUsername(),adminLoginParam.getPassword(),adminLoginParam.getCode(),httpRequest);
     }
     @ApiOperation(value = "退出登录")
     @PostMapping("/logout")

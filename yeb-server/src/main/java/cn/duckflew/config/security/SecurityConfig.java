@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         //Session相关的关小
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
-                .antMatchers("/login","/logout").permitAll()
+                .antMatchers("/login","/logout","/captcha").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .headers()

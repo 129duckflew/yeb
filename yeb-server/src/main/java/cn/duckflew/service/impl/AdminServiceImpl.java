@@ -5,6 +5,7 @@ import cn.duckflew.mapper.AdminMapper;
 import cn.duckflew.pojo.Admin;
 import cn.duckflew.pojo.RespBean;
 import cn.duckflew.service.IAdminService;
+import cn.duckflew.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -44,8 +45,16 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Value("${jwt.tokenHead}")
     private String tokenHead;
     @Override
-    public RespBean login(String username, String password, HttpServletRequest httpRequest)
+    public RespBean login(String username, String password,String code, HttpServletRequest req)
     {
+        /**
+         * 校验验证码
+         */
+        String captcha = (String) req.getSession().getAttribute("captcha");
+        if (StringUtil.isEmpty(captcha)||!captcha.equalsIgnoreCase(code))
+        {
+            RespBean.error("验证码输入错误 请重新输入");
+        }
         /**
          * 登录
          */
