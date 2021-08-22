@@ -42,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter
                 if (valid)
                 {
                     UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(
-                            username,null,userDetails.getAuthorities()
+                            userDetails,null,userDetails.getAuthorities()
                     );
                     //应该是关联到req
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));

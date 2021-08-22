@@ -34,6 +34,9 @@ public class LoginController
     {
         return RespBean.success("注销成功!");
     }
+
+
+
     @GetMapping("/admin/info")
     @ApiOperation(value = "获取当前登录用户的信息")
     public Admin getAdminInfo(Principal principal)
@@ -42,6 +45,7 @@ public class LoginController
         String username=principal.getName();
         Admin admin=adminService.getAdminByUsername(username);
         admin.setPassword(null);
+        admin.setRoles(adminService.getRoles(admin.getId()));
         return admin;
     }
 

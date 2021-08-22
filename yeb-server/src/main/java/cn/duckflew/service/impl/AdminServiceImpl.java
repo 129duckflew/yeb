@@ -2,8 +2,11 @@ package cn.duckflew.service.impl;
 
 import cn.duckflew.config.security.JwtTokenUtil;
 import cn.duckflew.mapper.AdminMapper;
+import cn.duckflew.mapper.RoleMapper;
 import cn.duckflew.pojo.Admin;
+import cn.duckflew.pojo.Menu;
 import cn.duckflew.pojo.RespBean;
+import cn.duckflew.pojo.Role;
 import cn.duckflew.service.IAdminService;
 import cn.duckflew.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,6 +46,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    RoleMapper roleMapper;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
     @Override
@@ -88,4 +95,12 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     {
         return adminMapper.selectOne(new QueryWrapper<Admin>().eq("username",username).eq("enabled",true));
     }
+
+    @Override
+    public List<Role> getRoles(Integer adminId)
+    {
+
+        return roleMapper.getRoles(adminId);
+    }
+
 }

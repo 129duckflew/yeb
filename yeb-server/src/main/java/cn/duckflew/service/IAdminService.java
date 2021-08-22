@@ -1,10 +1,13 @@
 package cn.duckflew.service;
 
 import cn.duckflew.pojo.Admin;
+import cn.duckflew.pojo.Menu;
 import cn.duckflew.pojo.RespBean;
+import cn.duckflew.pojo.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>
@@ -26,4 +29,10 @@ public interface IAdminService extends IService<Admin> {
     RespBean login(String username, String password,String code, HttpServletRequest httpRequest);
 
     Admin getAdminByUsername(String username);
+
+    /**
+     * 根据用户id查询角色
+     * @return
+     */
+    List<Role> getRoles(Integer adminId);
 }

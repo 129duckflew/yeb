@@ -1,9 +1,12 @@
 package cn.duckflew.config.security;
 
+import cn.duckflew.pojo.Admin;
 import cn.duckflew.service.IAdminService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -11,8 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -55,6 +60,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                  );
     }
 
+    @Autowired
+    private CustomUrlDecisionManager customUrlDecisionManager;
+    @Autowired
+    CustomerFilter customerFilter;
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
@@ -65,6 +74,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.authorizeRequests()
                 .antMatchers("/login","/logout","/captcha").permitAll()
                 .anyRequest().authenticated()
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>()
+                {
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O object)
+                    {
+                        object.setAccessDecisionManager(customUrlDecisionManager);
+                        object.setSecurityMetadataSource(customerFilter);
+                        return object;
+                    }
+                })
                 .and()
                 .headers()
                 .cacheControl();
@@ -80,7 +99,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Bean
     public UserDetailsService userDetailsService()
     {
-       return username-> adminService.getAdminByUsername(username);
+       return username-> {
+           Admin admin = adminService.getAdminByUsername(username);
+           if (null!=admin)
+           {
+               admin.setRoles(adminService.getRoles(admin.getId()));
+               return  admin;
+           }
+           throw new UsernameNotFoundException("用户名或者密码不正确");
+       };
     }
     @Bean
     JwtAuthenticationFilter jwtAuthenticationFilter()
