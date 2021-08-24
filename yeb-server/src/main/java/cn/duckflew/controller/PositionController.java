@@ -45,7 +45,7 @@ public class PositionController {
     }
     @ApiOperation(value = "更新职位")
     @PutMapping("/")
-    public RespBean updatePoistion(Position position)
+    public RespBean updatePosition(@RequestBody Position position)
     {
         boolean success = positionService.updateById(position);
         if (success)
