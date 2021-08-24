@@ -56,7 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                         "/doc.html",
                         "/webjars/**",
                         "/swagger-resources",
-                        "/v2/api-docs/**"
+                        "/v2/api-docs/**",
+                        "/login","/logout","/captcha"
                  );
     }
 
@@ -72,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         //Session相关的关小
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
-                .antMatchers("/login","/logout","/captcha").permitAll()
+                .antMatchers().permitAll()
                 .anyRequest().authenticated()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>()
                 {
