@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -54,5 +55,14 @@ public class JoblevelController
     public List<Joblevel> getAllJobLevels()
     {
         return joblevelService.list();
+    }
+
+    @ApiOperation(value = "批量删除")
+    @DeleteMapping("/")
+    public RespBean batchDelete(Integer[] ids)
+    {
+        boolean success = joblevelService.removeByIds(Arrays.asList(ids));
+        if (success)return RespBean.success("删除成功");
+        return RespBean.error("删除失败");
     }
 }
