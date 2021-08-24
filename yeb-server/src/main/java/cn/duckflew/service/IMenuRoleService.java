@@ -1,6 +1,7 @@
 package cn.duckflew.service;
 
 import cn.duckflew.pojo.MenuRole;
+import cn.duckflew.pojo.RespBean;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IMenuRoleService extends IService<MenuRole> {
 
+    RespBean updateMenuRole(Integer rid, Integer[] mids);
 }

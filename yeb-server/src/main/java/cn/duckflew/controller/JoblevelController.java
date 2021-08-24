@@ -50,7 +50,7 @@ public class JoblevelController
         if (success)return RespBean.success("修改成功");
         return RespBean.error("修改失败");
     }
-    @ApiOperation(value = "新增职称")
+    @ApiOperation(value = "获取职称")
     @GetMapping("/")
     public List<Joblevel> getAllJobLevels()
     {

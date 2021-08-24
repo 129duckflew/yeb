@@ -88,4 +88,36 @@ WHERE
 ORDER BY
 	m.id
     </select>
+<resultMap id="MenusTree" type="cn.duckflew.pojo.Menu" extends="BaseResultMap">
+    <id column="id1 " property="id"></id>
+    <result column="name1" property="name"></result>
+    <collection property="children" ofType="cn.duckflew.pojo.Menu">
+        <id column="id2 " property="id"></id>
+        <result column="name2" property="name"></result>
+        <collection property="children" ofType="cn.duckflew.pojo.Menu">
+          <id column="id3 " property="id"></id>
+          <result column="name3" property="name"></result>
+        </collection>
+    </collection>
+</resultMap>
+<select id="getAllMenus" resultMap="MenusTree">
+        SELECT
+        distinct
+	m1.id as id1,
+	m1.`name` as name1,
+	m2.id as id2,
+	m2.`name` as name2,
+	m3.id as id3,
+	m3.`name` as name3
+    FROM
+    t_menu m1,
+    t_menu m2,
+    t_menu m3
+    WHERE
+        m2.parentId=m1.id
+    AND
+        m3.parentId=m2.id
+    AND
+        m3.enabled=TRUE
+</select>
 </mapper>
