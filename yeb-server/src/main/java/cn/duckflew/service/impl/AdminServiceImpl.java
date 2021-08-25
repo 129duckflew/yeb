@@ -4,15 +4,14 @@ import cn.duckflew.config.security.JwtTokenUtil;
 import cn.duckflew.mapper.AdminMapper;
 import cn.duckflew.mapper.RoleMapper;
 import cn.duckflew.pojo.Admin;
-import cn.duckflew.pojo.Menu;
 import cn.duckflew.pojo.RespBean;
 import cn.duckflew.pojo.Role;
 import cn.duckflew.service.IAdminService;
+import cn.duckflew.utils.AdminUtils;
 import cn.duckflew.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +20,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -101,6 +99,17 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     {
 
         return roleMapper.getRoles(adminId);
+    }
+
+    //获取所有操作员
+    @Autowired
+    AdminUtils adminUtils;
+    @Override
+    public List<Admin> getAllAdmins(String keywords)
+    {
+        Admin currentAdmin = adminUtils.getCurrentAdmin();
+        Integer currentAdminId = currentAdmin.getId();
+        return adminMapper.getAllAdmins(currentAdminId,keywords);
     }
 
 }

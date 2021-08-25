@@ -35,4 +35,6 @@ public interface IAdminService extends IService<Admin> {
      * @return
      */
     List<Role> getRoles(Integer adminId);
+
+    List<Admin> getAllAdmins(String keywords);
 }

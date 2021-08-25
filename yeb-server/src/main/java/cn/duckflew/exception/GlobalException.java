@@ -17,6 +17,7 @@ public class GlobalException
         {
             return RespBean.error("本数据有关联的数据 无法删除");
         }
+        sqlException.printStackTrace();
         return RespBean.error("数据库异常");
     }
 }
