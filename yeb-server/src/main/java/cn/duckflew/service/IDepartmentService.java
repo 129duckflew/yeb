@@ -1,6 +1,7 @@
 package cn.duckflew.service;
 
 import cn.duckflew.pojo.Department;
+import cn.duckflew.pojo.RespBean;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -16,4 +17,8 @@ import java.util.List;
 public interface IDepartmentService extends IService<Department> {
 
     List<Department> getAllDepartments();
+
+    RespBean addDepartment(Department department);
+
+    RespBean delDep(Integer id);
 }

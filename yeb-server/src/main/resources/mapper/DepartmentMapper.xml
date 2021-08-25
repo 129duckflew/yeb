@@ -33,4 +33,18 @@
         where parentId=#{parentId}
     </select>
 
+<!--    添加部门-->
+    <select id="addDepartment" statementType="CALLABLE">
+        call addDep(#{department.name,mode=IN,jdbcType=VARCHAR},
+        #{department.parentId,jdbcType=INTEGER,mode=IN},
+        #{department.enabled,jdbcType=BOOLEAN,mode=IN},
+        #{department.result,jdbcType=INTEGER,mode=OUT},
+        #{department.id,jdbcType=INTEGER,mode=OUT})
+    </select>
+    <select id="delDep" statementType="CALLABLE">
+      call deleteDep(
+        #{department.id,jdbcType=INTEGER,mode=IN},
+        #{department.result,jdbcType=INTEGER,mode=OUT})
+    </select>
+
 </mapper>
