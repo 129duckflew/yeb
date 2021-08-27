@@ -47,6 +47,7 @@ mybatis-plus:
   configuration:
     # 自动驼峰命名
     map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 ## Mybatis SQL 打印(方法接口所在的包，不是Mapper.xml所在的包)
 logging:

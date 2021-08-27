@@ -4,6 +4,7 @@ package cn.duckflew.controller;
 import cn.duckflew.pojo.Employee;
 import cn.duckflew.pojo.RespPageBean;
 import cn.duckflew.service.IEmployeeService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
  * @author duckflew
  * @since 2021-08-27
  */
+@Api(tags = "员工管理接口")
 @RestController
 @RequestMapping("/employee/basic")
 public class EmployeeController {
@@ -32,6 +34,17 @@ public class EmployeeController {
     public RespPageBean getAllEmp(@RequestParam(defaultValue = "1")Integer currentPage, @RequestParam(defaultValue = "10") Integer pageSize,
                                   Employee employee, LocalDate[]beginDateScope)
     {
+        System.out.println("=============================================================");
+        System.out.println("=============================================================");
+        System.out.println("=============================================================");
+        System.out.println(employee.toString());
+        for (LocalDate localDate : beginDateScope)
+        {
+            System.out.println(localDate);
+        }
+        System.out.println("=============================================================");
+        System.out.println("=============================================================");
+        System.out.println("=============================================================");
         return employeeService.getEmpByPage(currentPage,pageSize,employee,beginDateScope);
 
     }
