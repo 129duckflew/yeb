@@ -18,7 +18,7 @@ import java.time.LocalDate;
  * </p>
  *
  * @author duckflew
- * @since 2021-03-24
+ * @since 2021-08-27
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

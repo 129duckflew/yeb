@@ -25,7 +25,7 @@ public class AdminController {
     @Autowired
     IAdminService adminService;
     @GetMapping("/")
-    @ApiOperation(value = "获取所有操作员")
+    @ApiOperation(value = "获取所有操作员 或者搜索操作员 keywords传入null就是获取所有")
     public List<Admin> admins(String keywords)
     {
         return adminService.getAllAdmins(keywords);
