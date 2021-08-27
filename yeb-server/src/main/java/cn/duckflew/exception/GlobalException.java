@@ -1,6 +1,7 @@
 package cn.duckflew.exception;
 
 import cn.duckflew.pojo.RespBean;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,5 +20,12 @@ public class GlobalException
         }
         sqlException.printStackTrace();
         return RespBean.error("数据库异常");
+    }
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public RespBean UsernameNotFoundException(UsernameNotFoundException usernameNotFoundException)
+    {
+        RespBean error = RespBean.error(usernameNotFoundException.getMessage());
+        error.setCode(403);
+        return error;
     }
 }

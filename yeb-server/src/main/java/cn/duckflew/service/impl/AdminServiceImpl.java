@@ -2,8 +2,10 @@ package cn.duckflew.service.impl;
 
 import cn.duckflew.config.security.JwtTokenUtil;
 import cn.duckflew.mapper.AdminMapper;
+import cn.duckflew.mapper.AdminRoleMapper;
 import cn.duckflew.mapper.RoleMapper;
 import cn.duckflew.pojo.Admin;
+import cn.duckflew.pojo.AdminRole;
 import cn.duckflew.pojo.RespBean;
 import cn.duckflew.pojo.Role;
 import cn.duckflew.service.IAdminService;
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -110,6 +113,20 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         Admin currentAdmin = adminUtils.getCurrentAdmin();
         Integer currentAdminId = currentAdmin.getId();
         return adminMapper.getAllAdmins(currentAdminId,keywords);
+    }
+
+
+    @Autowired
+    AdminRoleMapper adminRoleMapper;
+    //更新操作员的角色
+    @Transactional
+    @Override
+    public RespBean updateAdminRoles(Integer adminId, Integer[] rids)
+    {
+        adminRoleMapper.delete(new QueryWrapper<AdminRole>().eq("adminId",adminId));
+        Integer res = adminRoleMapper.addAdminRole(adminId, rids);
+        if (rids.length==res)return RespBean.success("更新成功");
+        return RespBean.error("更新失败");
     }
 
 }

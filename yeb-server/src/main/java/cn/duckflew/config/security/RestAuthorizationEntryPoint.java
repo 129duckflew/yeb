@@ -19,6 +19,7 @@ public class RestAuthorizationEntryPoint implements AuthenticationEntryPoint
     @Override
     public void commence(HttpServletRequest req, HttpServletResponse res, AuthenticationException e) throws IOException, ServletException
     {
+        e.printStackTrace();
         res.setCharacterEncoding("utf-8");
         res.setContentType("application/json");
         PrintWriter printWriter=res.getWriter();

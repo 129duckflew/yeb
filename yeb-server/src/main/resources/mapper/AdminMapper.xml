@@ -22,13 +22,15 @@
 
     <resultMap id="AdminWithRoles" type="cn.duckflew.pojo.Admin" extends="BaseResultMap">
         <collection property="roles" ofType="cn.duckflew.pojo.Role">
-            <id column="rname" property="name"></id>
-            <id column="rnameZh" property="nameZh"></id>
+            <id column="roleId" property="id"></id>
+            <result column="rname" property="name"></result>
+            <result column="rnameZh" property="nameZh"></result>
         </collection>
 </resultMap>
     <select id="getAllAdmins" resultMap="AdminWithRoles">
 SELECT
 t_admin.*,
+t_role.id roleId,
 t_role.`name` rname,
 t_role.nameZh  rnameZh
 FROM
