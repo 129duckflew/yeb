@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ import java.util.List;
  * @since 2021-03-24
  */
 @RestController
-@RequestMapping("/position")
+@RequestMapping("system/basic/position")
 public class PositionController {
 
     @Autowired
@@ -64,5 +65,18 @@ public class PositionController {
             return RespBean.success("删除成功");
         }
         return RespBean.error("删除失败");
+    }
+
+    @ApiOperation(value = "批量删除职位信息")
+    @DeleteMapping("/")
+    public RespBean deleteMany(Integer [] ids){
+        if (positionService.removeByIds(Arrays.asList(ids)))
+        {
+            return RespBean.success("删除成功");
+        }
+        else
+        {
+            return RespBean.error("删除失败");
+        }
     }
 }

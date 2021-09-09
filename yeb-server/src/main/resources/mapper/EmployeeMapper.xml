@@ -118,4 +118,48 @@ ORDER BY
     </association>
 </resultMap>
 
+
+<resultMap id="EmpWithSalary" type="cn.duckflew.pojo.Employee" extends="BaseResultMap">
+    <association property="salary" javaType="cn.duckflew.pojo.Salary">
+        <id property="id" column="sid"></id>
+        <result column="sname" property="name"></result>
+        <result column="basicSalary" property="basicSalary"></result>
+        <result column="sbonus" property="bonus"></result>
+        <result column="slunch" property="lunchSalary"></result>
+        <result column="strafficSalary" property="trafficSalary"></result>
+        <result column="sallsary" property="allSalary"></result>
+        <result column="smedicalPer" property="medicalPer"></result>
+        <result column="smedicalBase" property="medicalBase"></result>
+        <result column="saccumulationFundPer" property="accumulationFundPer"></result>
+        <result column="accumulationFundBase" property="accumulationFundBase"></result>
+    </association>
+    <association property="department" javaType="cn.duckflew.pojo.Department">
+        <result column="dname" property="name"/>
+    </association>
+</resultMap>
+<select id="getEmpWithSalary" resultMap="EmpWithSalary">
+
+SELECT
+  e.*,
+	d.`name` AS dname,
+	s.id AS sid,
+	s.basicSalary AS basicSalary,
+	s.`name` AS sname,
+	s.bonus AS sbonus,
+	s.trafficSalary AS strafficSalary,
+	s.pensionBase AS spensionBase,
+	s.medicalBase AS smedicalBase,
+	s.medicalPer AS smedicalPer,
+	s.allSalary AS sallsary,
+  s.accumulationFundPer AS saccumulationFundPer,
+  s.accumulationFundBase AS accumulationFundBase ,
+	s.lunchSalary AS slunch
+FROM
+	t_employee  e
+	LEFT JOIN t_salary s ON e.salaryId = s.id
+	LEFT JOIN t_department d ON e.departmentId = d.id
+ORDER BY
+	e.id
+</select>
+
 </mapper>

@@ -89,13 +89,13 @@ ORDER BY
 	m.id
     </select>
 <resultMap id="MenusTree" type="cn.duckflew.pojo.Menu" extends="BaseResultMap">
-    <id column="id1 " property="id"></id>
+    <id column="id1" property="id"></id>
     <result column="name1" property="name"></result>
     <collection property="children" ofType="cn.duckflew.pojo.Menu">
-        <id column="id2 " property="id"></id>
+        <id column="id2" property="id"></id>
         <result column="name2" property="name"></result>
         <collection property="children" ofType="cn.duckflew.pojo.Menu">
-          <id column="id3 " property="id"></id>
+          <id column="id3" property="id"></id>
           <result column="name3" property="name"></result>
         </collection>
     </collection>

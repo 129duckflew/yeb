@@ -23,4 +23,5 @@ public interface IEmployeeService extends IService<Employee> {
 
     RespBean addEmp(Employee employee);
 
+    RespPageBean getEmpWithSalary(Integer currentPage, Integer pageSize);
 }

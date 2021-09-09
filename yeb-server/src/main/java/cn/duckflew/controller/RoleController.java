@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @since 2021-03-24
  */
 @RestController
-@RequestMapping("/sys/basic")
+@RequestMapping("/system/basic/role")
 public class RoleController {
 
 
@@ -42,8 +42,10 @@ public class RoleController {
             roleService.save(role);
             return RespBean.success("添加角色成功");
         }
-        else RespBean.error("角色名不符合规范");
-        return RespBean.error("添加失败");
+        else
+        {
+          return   RespBean.error("角色名不符合规范");
+        }
     }
     @ApiOperation(value = "删除角色")
     @DeleteMapping("/{rid}")
@@ -51,7 +53,9 @@ public class RoleController {
     {
         boolean success = roleService.removeById(rid);
         if (success)
-        return RespBean.success("删除角色成功");
+        {
+            return RespBean.success("删除角色成功");
+        }
         return RespBean.error("删除失败");
     }
     @ApiOperation(value = "更新角色")
@@ -74,12 +78,7 @@ public class RoleController {
 
     @Autowired
     IMenuService menuService;
-    @ApiOperation(value = "查询所有菜单")
-    @GetMapping("/menu")
-    public List<Menu>getAllMenus()
-    {
-        return menuService.getAllMenus();
-    }
+
 
     @Autowired
     IMenuRoleService menuRoleService;
@@ -93,7 +92,7 @@ public class RoleController {
     }
 
     @ApiOperation(value = "更新角色的菜单")
-    @PutMapping("/role/menu")
+    @PutMapping("/menu")
     public RespBean updateMenuRole(Integer rid,Integer[]mids)
     {
         return menuRoleService.updateMenuRole(rid,mids);

@@ -14,6 +14,7 @@ import cn.duckflew.utils.StringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,16 +61,26 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
          * 校验验证码
          */
         String captcha = (String) req.getSession().getAttribute("captcha");
+        HttpSession session = req.getSession();
+        System.out.println(session.getId());
+        System.out.println(code);
+        System.out.println("==============================session中的验证码"+captcha+"========================================================");
         if (StringUtil.isEmpty(captcha)||!captcha.equalsIgnoreCase(code))
         {
-            RespBean.error("验证码输入错误 请重新输入");
+            return  RespBean.error("验证码输入错误 请重新输入");
         }
         /**
          * 登录
          */
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        if (null==userDetails||!passwordEncoder.matches(password,userDetails.getPassword()))return RespBean.error("用户民或者密码不正确");
-        if (!userDetails.isEnabled())return RespBean.error("账户已经被禁用,清联系管理员");
+        if (null==userDetails||!passwordEncoder.matches(password,userDetails.getPassword()))
+        {
+            return RespBean.error("用户名或者密码不正确");
+        }
+        if (!userDetails.isEnabled())
+        {
+            return RespBean.error("账户已经被禁用,清联系管理员");
+        }
         //生成token
         String token = jwtTokenUtil.generateToken(userDetails);
         //更新security 登录用户对象  放在Spring 全文中

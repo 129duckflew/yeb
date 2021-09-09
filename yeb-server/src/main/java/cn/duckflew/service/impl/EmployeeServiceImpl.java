@@ -70,4 +70,12 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         if (insert==1)return RespBean.success("添加成功");
         return RespBean.error("添加失败");
     }
+
+    @Override
+    public RespPageBean getEmpWithSalary(Integer currentPage, Integer pageSize)
+    {
+          Page<Employee> page=new Page<>(currentPage,pageSize);
+         IPage<Employee> employeeIPage = employeeMapper.getEmpWithSalary(page);
+        return    new RespPageBean(employeeIPage .getTotal(),employeeIPage .getRecords());
+    }
 }

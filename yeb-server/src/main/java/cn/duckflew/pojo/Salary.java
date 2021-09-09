@@ -3,6 +3,7 @@ package cn.duckflew.pojo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -54,6 +55,7 @@ public class Salary implements Serializable {
     @ApiModelProperty(value = "养老金比率")
     private Float pensionPer;
 
+    @JsonFormat(pattern = "yyyy-MM-dd" ,timezone = "Asia/Shanghai")
     @ApiModelProperty(value = "启用时间")
     private LocalDateTime createDate;
 

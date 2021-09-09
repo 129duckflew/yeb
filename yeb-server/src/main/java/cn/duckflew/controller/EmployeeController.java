@@ -20,7 +20,7 @@ import java.util.List;
  * @author duckflew
  * @since 2021-08-27
  */
-@Api(tags = "员工管理接口")
+@Api
 @RestController
 @RequestMapping("/employee/basic")
 public class EmployeeController {
@@ -82,7 +82,7 @@ public class EmployeeController {
     }
 
     @ApiOperation(value = "查询最大工号")
-    @GetMapping("/wordid")
+    @GetMapping("/workid")
     public RespBean  getMaxWorkId()
     {
         return  employeeService.getWorkId();
@@ -101,7 +101,7 @@ public class EmployeeController {
     public RespBean updateEmp(@RequestBody Employee employee)
     {
         boolean update = employeeService.updateById(employee);
-        if (update)return RespBean.success("update成功");
+        if (update)return RespBean.success("更新成功");
         return RespBean.error("update失败");
     }
     @ApiOperation(value = "删除员工")
@@ -109,7 +109,7 @@ public class EmployeeController {
     public RespBean updateEmp(@PathVariable Integer id)
     {
         boolean delete = employeeService.removeById(id);
-        if (delete)return RespBean.success("delete成功");
+        if (delete)return RespBean.success("删除成功");
         return RespBean.error("delete失败");
     }
 }

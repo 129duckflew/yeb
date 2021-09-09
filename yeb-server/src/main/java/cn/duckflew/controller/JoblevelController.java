@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2021-08-24
  */
 @RestController
-@RequestMapping("/system/cfg/joblevel")
+@RequestMapping("/system/basic/joblevel")
 public class JoblevelController
 {
     @Autowired
