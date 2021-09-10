@@ -1,10 +1,14 @@
 package cn.duckflew.service.impl;
 
 import cn.duckflew.mapper.EmployeeEcMapper;
+import cn.duckflew.pojo.Employee;
 import cn.duckflew.pojo.EmployeeEc;
 import cn.duckflew.service.IEmployeeEcService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>

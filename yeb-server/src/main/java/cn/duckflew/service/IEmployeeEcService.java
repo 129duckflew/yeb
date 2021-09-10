@@ -1,7 +1,10 @@
 package cn.duckflew.service;
 
+import cn.duckflew.pojo.Employee;
 import cn.duckflew.pojo.EmployeeEc;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-03-24
  */
 public interface IEmployeeEcService extends IService<EmployeeEc> {
+
 
 }
