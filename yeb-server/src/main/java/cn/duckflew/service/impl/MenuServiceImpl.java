@@ -44,6 +44,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             menus = menuMapper.getMenusByAdminId(id);
             valueOperations.set("menu_"+id,menus);
         }
+        log.error(admin.toString());
+        menus.forEach(menu -> log.error(menu.getName()));
         return menus;
     }
 

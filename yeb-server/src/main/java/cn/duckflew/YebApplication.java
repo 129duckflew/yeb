@@ -1,4 +1,4 @@
-package cn;
+package cn.duckflew;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

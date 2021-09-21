@@ -2,6 +2,7 @@ package cn.duckflew.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import java.io.IOException;
  * @author zhoubin
  * @since 1.0.0
  */
+@Slf4j
 @RestController
 public class CaptchaController {
 
@@ -46,7 +48,7 @@ public class CaptchaController {
 		//将验证码文本内容放入session
 		request.getSession().setAttribute("captcha",text);
 		String id = request.getSession().getId();
-		System.out.println("session id "+id);
+		log.error("session id "+id);
 		//根据文本验证码内容创建图形验证码
 		BufferedImage image = defaultKaptcha.createImage(text);
 		ServletOutputStream outputStream = null;
