@@ -1,0 +1,16 @@
+
+spring:
+  mail:
+    host: smtp.qq.com
+    username: 1297087462@qq.com
+    password: icvvrxjjwkqqfdjb
+    default-encoding: utf-8
+    protocol: smtp
+    port: 587  #465--->smtps 或587---->smtp 对应上面的的协议修改
+  rabbitmq:
+    host: 192.168.196.131
+    port: 5672
+    username: duckflew
+    password: 123456
+server:
+  port: 8989

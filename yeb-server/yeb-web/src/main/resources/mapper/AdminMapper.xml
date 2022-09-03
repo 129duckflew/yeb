@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.duckflew.mapper.AdminMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.duckflew.pojo.Admin">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="phone" property="phone" />
+        <result column="telephone" property="telephone" />
+        <result column="address" property="address" />
+        <result column="enabled" property="enabled" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="userFace" property="userFace" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, phone, telephone, address, enabled, username, password, userFace, remark
+    </sql>
+
+    <resultMap id="AdminWithRoles" type="cn.duckflew.pojo.Admin" extends="BaseResultMap">
+        <collection property="roles" ofType="cn.duckflew.pojo.Role">
+            <id column="roleId" property="id"></id>
+            <result column="rname" property="name"></result>
+            <result column="rnameZh" property="nameZh"></result>
+        </collection>
+</resultMap>
+    <select id="getAllAdmins" resultMap="AdminWithRoles">
+SELECT
+t_admin.*,
+t_role.id roleId,
+t_role.`name` rname,
+t_role.nameZh  rnameZh
+FROM
+	t_admin
+	LEFT JOIN t_admin_role ON t_admin.id = t_admin_role.adminId
+	LEFT JOIN t_role ON t_role.id = t_admin_role.rid
+WHERE
+	<if test="currentAdminId != null and keywords != null">
+	t_admin.id != #{currentAdminId}
+	AND t_admin.`name` LIKE CONCAT(
+		'%',
+	#{keywords}
+	'%')
+	</if>
+	ORDER BY t_admin.id;
+    </select>
+</mapper>
